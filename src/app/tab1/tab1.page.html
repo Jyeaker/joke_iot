@@ -1,0 +1,118 @@
+
+<ion-header class="ion-no-border">
+	<ion-toolbar>
+	
+
+	
+	</ion-toolbar>
+
+	<ion-item lines="none">
+
+		<ion-avatar slot="start">
+			<img src="../../assets/imgs/farmer.png">
+    </ion-avatar>
+			<ion-label>
+				<p>สวัสดี,</p>
+				<h3>โว้ววว... หมอลำซิ่ง...</h3>
+			</ion-label>
+
+	</ion-item>
+
+</ion-header>
+
+<ion-content>
+
+  <div class="slides ion-margin-bottom">
+    <ion-slides [options]="slidesOptions">
+      <ion-slide>
+        <ion-card class="center" style="text-align: center;"> 
+    <ion-header style="text-align: left;">ค่าความเข้มแสง </ion-header>
+    <ngx-gauge [type]="gaugeType" [value]="readLux"  append="Lux" size="150" min="0" max="70000">
+    </ngx-gauge>
+  </ion-card>
+      </ion-slide>
+
+      <ion-slide>
+
+          <ion-card style="text-align: center;">
+            <ion-header style="text-align: left;">อุณหภูมิ </ion-header>
+                <ngx-gauge [type]="gaugeType" [value]="readTemp"  append="°C" size="150">
+                </ngx-gauge>
+        </ion-card>
+      </ion-slide>
+
+      <ion-slide>
+
+        <ion-card style="text-align: center;">
+          <ion-header style="text-align: left;">ความชื้น</ion-header>
+          <ngx-gauge [type]="gaugeType" [value]="readHum" append="%" size="150">
+          </ngx-gauge>
+        
+        </ion-card>
+    </ion-slide>
+
+    </ion-slides>
+  </div>
+  <div class="container">
+
+    <h2>You Setting</h2>
+
+    <ion-item lines="none">
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="3">
+            <ion-button color="light" fill="clear">
+              <ion-icon slot="icon-only" name="sunny"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="7">
+            <ion-label>
+							<h4>ค่าความเข้มแสงที่เหมาะสม</h4>
+							<h6>30,000 Lux</h6>
+						</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-button color="light" fill="clear">
+              <ion-icon slot="icon-only" name="settings"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+        <ion-item lines="none">
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="3">
+            <ion-button color="light" fill="clear">
+              <ion-icon slot="icon-only" name="thermometer"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="7">
+            <ion-label>
+							<h4>อุณหภูมิที่เหมาะสม</h4>
+							<h6>26 °C</h6>
+						</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-button color="light" fill="clear">
+              <ion-icon slot="icon-only" name="settings"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+  </div>
+ 
+       
+     
+    
+   
+      
+ 
+
+  </ion-content>
+      <ion-footer no-shadow >
+           <img src="../../assets/imgs/stone.png" style="border: 0;">
+        </ion-footer>

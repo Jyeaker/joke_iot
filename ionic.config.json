@@ -1,0 +1,10 @@
+{
+  "name": "joke_iiot",
+  "integrations": {
+    "capacitor": {
+      "enabled": false
+    },
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,47 @@
+
+
+ion-col {
+    padding: 0;
+}
+
+ion-content {
+    --background: url('../../assets/imgs/1.gif')no-repeat;
+}
+// ion-header {
+
+//     ion-toolbar{
+//       --background: url('../../assets/imgs/vine2.png')  100% 100%;
+     
+//     }
+  
+//     ion-toolbar {
+//       .bordered {
+//         --border-radius: 10px;
+//         --box-shadow: 5px 5px 10px #d1d1d1, -5px -5px 10px #FFFFFF;
+//       }
+//     }
+  
+  
+  
+//   }
+
+
+ion-item {
+    border-radius: 14px;
+    box-shadow: 0px 3px 45px 0px rgba(0, 0, 0, 0.08);
+
+    ion-icon:first-of-type {
+        background: #ed576b;
+        color: #FFFFFF;
+        padding: 0px;
+        border-radius: 12px;
+    }
+
+    ion-icon:last-of-type {
+        background: #ed576b;
+        color: #FFFFFF;
+        padding: 0px;
+        border-radius: 12px;
+    }
+
+}
