@@ -9,9 +9,12 @@ import Swal from 'sweetalert2'
 export class Tab2Page  implements OnInit{
   public setTimeStart1:string = '--:--';
   public setTimeEnd1:string = '--:--';
+  public setTimeStart2:string = '--:--';
+  public setTimeEnd2:string = '--:--';
   public setTemp1:string ="";
   public setTemp2:string ="";
-  public setLux:string="";
+  public setLux1:string="";
+  public setLux2:string="";
   constructor(public fb:AngularFireDatabase) {}
   ngOnInit(){
     this.fb
@@ -22,6 +25,8 @@ export class Tab2Page  implements OnInit{
       
       this.setTimeStart1 = `${value}`.split(",")[0];
       this.setTimeEnd1 = `${value}`.split(",")[1];
+      this.setTimeStart2 = `${value}`.split(",")[2];
+      this.setTimeEnd2 = `${value}`.split(",")[3];
       
       
     });
@@ -30,7 +35,7 @@ export class Tab2Page  implements OnInit{
     .valueChanges()
     .subscribe((value: any) => {
     
-      this.setLux = `${value}`.split(",")[0];
+      this.setLux1 = `${value}`.split(",")[0];    
       this.setTemp1 = `${value}`.split(",")[1];
       this.setTemp2 = `${value}`.split(",")[2];
       
@@ -50,7 +55,7 @@ export class Tab2Page  implements OnInit{
     this.setTimeStart1 = timeset;
     this.fb
       .object("set/timeall")
-      .set(this.setTimeStart1+","+this.setTimeEnd1)
+      .set(this.setTimeStart1+","+this.setTimeEnd1+","+this.setTimeStart2+","+this.setTimeEnd2)
       .then(() => {
       });
   }
@@ -61,19 +66,42 @@ export class Tab2Page  implements OnInit{
     this.setTimeEnd1 = timeset;
     this.fb
       .object("set/timeall")
-      .set(this.setTimeStart1+","+this.setTimeEnd1)
+      .set(this.setTimeStart1+","+this.setTimeEnd1+","+this.setTimeStart2+","+this.setTimeEnd2)
+      .then(() => {
+      });
+  }
+  public getTimeStart2(time:any) {
+    let dt = new Date(time);
+ 
+    let timeset = `${this.zeroPad(dt.getHours())}:${this.zeroPad(dt.getMinutes())}`;
+    this.setTimeStart2= timeset;
+    this.fb
+      .object("set/timeall")
+      .set(this.setTimeStart1+","+this.setTimeEnd1+","+this.setTimeStart2+","+this.setTimeEnd2)
+      .then(() => {
+      });
+  }
+  public getTimeEnd2(time:any) {
+    let dt = new Date(time);
+ 
+    let timeset = `${this.zeroPad(dt.getHours())}:${this.zeroPad(dt.getMinutes())}`;
+    this.setTimeEnd2 = timeset;
+    this.fb
+      .object("set/timeall")
+      .set(this.setTimeStart1+","+this.setTimeEnd1+","+this.setTimeStart2+","+this.setTimeEnd2)
       .then(() => {
       });
   }
     private zeroPad(nr, base = 10) {
       return nr;
       var len = (String(base).length - String(nr).length) + 1;
-      //return len > 0 ? new Array(len).join('0') + nr : nr;
+  
     }
-   public SetLux(val:any){
-    
-    this.setLux = val;
-    console.log(this.setLux);
+   public SetLux(val:any){ 
+
+    this.setLux1 = val;
+    this.setLux2 = val;
+    console.log(this.setLux1,this.setLux2);
     if(val<=70000){
       Swal.fire({
         title: 'ต้องการยืนยัน?',
@@ -86,14 +114,14 @@ export class Tab2Page  implements OnInit{
         if (result.isConfirmed) {
           Swal.fire({
             title: 'สำเร็จ',
-            text: 'อุณภูมิ '+this.setLux,
+            text: 'ความเข้มแสงที่เหมาะสม '+this.setLux1+' ถึง '+this.setLux2,
             icon: 'success',
             confirmButtonText: 'ตกลง',
             timer: 1500
           })
           this.fb
           .object("set/sensorall")
-          .set(this.setLux+","+this.setTemp1+","+this.setTemp2)
+          .set(this.setLux1+","+this.setTemp1+","+this.setTemp2)
           .then(() => {
           });
 
@@ -122,6 +150,7 @@ export class Tab2Page  implements OnInit{
       })
     }
        }
+
    public SetTemp(val:any,val1:any){
      let str = 0;
     this.setTemp1 = val;
@@ -138,14 +167,14 @@ export class Tab2Page  implements OnInit{
         if (result.isConfirmed) {
           Swal.fire({
             title: 'สำเร็จ',
-            text: 'อุณภูมิ '+this.setLux,
+            text: 'อุณภูมิ '+this.setTemp1 +"ถึง"+this.setTemp2,
             icon: 'success',
             confirmButtonText: 'ตกลง',
             timer: 1500
           })
           this.fb
           .object("set/sensorall")
-          .set(this.setLux+","+this.setTemp1+","+this.setTemp2)
+          .set(this.setLux1+","+this.setTemp1+","+this.setTemp2)
           .then(() => {
           });
 
@@ -185,4 +214,59 @@ export class Tab2Page  implements OnInit{
     
     
    }
+
+
+   public Settimesy(val:any){ 
+    
+    this.setLux1 = val;
+    console.log(this.setLux1);
+    if(val<=70000){
+      Swal.fire({
+        title: 'ต้องการยืนยัน?',
+        text: '',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'ตกลง!',
+        cancelButtonText: 'ยกเลิก'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: 'สำเร็จ',
+            text: 'อุณภูมิ '+this.setLux1,
+            icon: 'success',
+            confirmButtonText: 'ตกลง',
+            timer: 1500
+          })
+          this.fb
+          .object("set/sensorall")
+          .set(this.setLux1+","+this.setTemp1+","+this.setTemp2)
+          .then(() => {
+          });
+
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire({
+            title: 'สำเร็จ',
+            text: 'ทำการยกเลิก',
+            icon:"error",
+            timer: 1500
+          }
+           
+            
+            
+          )
+        }
+      })
+  
+    }else{
+      Swal.fire({
+        title: 'ค่าความเข้มแสงสุงเกินไป!',
+        text: 'โปรดใส่ไม่เกิน 70000 Lux',
+        icon: 'warning',
+        confirmButtonText: 'ตกลง',
+        timer: 1500
+
+      })
+    }
+       }
+
 }
